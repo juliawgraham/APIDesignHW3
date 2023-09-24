@@ -22,6 +22,12 @@ class Connect4:
         else:
             return Checker.RED
     
+    def __current_player_win_game_state(self):
+        if self._current_player == 1:
+            return GameState.WIN_PLAYER_1
+        else:
+            return GameState.WIN_PLAYER_2
+    
     def __switch_current_player(self):
         if self._current_player == 1:
             self._current_player = 2
@@ -57,16 +63,19 @@ class Connect4:
         except ColumnFullError:
             print(f"Column {col} already has {self.BOARD_HEIGHT} checkers and can\'t accept any more")
     
-    def __update_game_state(self, row, col):
+    def __update_game_state(self, row_index, col_index):
         # check tie
         if not any([any([checker is Checker.EMPTY for checker in row]) for row in self._board]):
             game._game_state = GameState.TIE
             return
         
         # check horizontal wins
-        # if not any([any([checker is Checker.EMPTY for checker in row]) for row in self._board]):
-        #     game._game_state = GameState.WIN
-        #     return
+        # self.BOARD_WIDTH - self.WIN_LENGTH + 1 = 7 - 4 + 1 = 4 --> [0-3]
+        for i in range(self.BOARD_WIDTH - self.WIN_LENGTH + 1):
+            if all([checker is self.__current_player_checker for checker in self._board[i, i+self.WIN_LENGTH]]):
+                game._game_state = self.__current_player_win_game_state()
+                return
+        
         # check vertical wins
 
         # check positive diagonal wins
