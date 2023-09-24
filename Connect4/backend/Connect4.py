@@ -52,8 +52,10 @@ class Connect4:
             print(f"Column {col} already has {self.BOARD_HEIGHT} checkers and can\'t accept any more")
     
     def __update_game_state(self, row, col):
-        pass
         # check tie
+        if not any([any([checker is Checker.EMPTY for checker in row]) for row in self._board]):
+            game._game_state = GameState.TIE
+            return
         
         # check horizontal wins
 
