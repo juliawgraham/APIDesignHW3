@@ -53,6 +53,15 @@ class Connect4:
     
     def __update_game_state(self, row, col):
         pass
+        # check tie
+        
+        # check horizontal wins
+
+        # check vertical wins
+
+        # check positive diagonal wins
+
+        # check negative diagonal wins
 
     def move(self, col):
         # check if the move is valid
@@ -76,20 +85,15 @@ class Connect4:
 
 
 
-def print_board(board):
-    print('\n'.join([' | '.join([item.value for item in row]) for row in board]))
+def make_move(game, col):
+    print(f"current player: {game.current_player()}")
+    game.move(col)
+    print('\n'.join([' | '.join([checker.value for checker in row]) for row in game.board()]))
+    print()
 
 game = Connect4()
-board = game.board()
 
-print(game.current_player())
-print(game.move(1))
-print_board(board)
+make_move(game, 1)
+make_move(game, 1)
+make_move(game, 3)
 
-print(game.current_player())
-print(game.move(1))
-print_board(board)
-
-print(game.current_player())
-print(game.move(3))
-print_board(board)
