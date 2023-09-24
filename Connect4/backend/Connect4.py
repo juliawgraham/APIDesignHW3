@@ -37,7 +37,7 @@ class Connect4:
             self._game_state = GameState.TURN_PLAYER_1
     
     def __is_game_in_progress(self):
-        return GameState.TURN_PLAYER_1 or GameState.TURN_PLAYER_2
+        return (self._game_state is GameState.TURN_PLAYER_1) or (self._game_state is GameState.TURN_PLAYER_2)
     
     # ????
     def game_state(self):
@@ -78,20 +78,20 @@ class Connect4:
         # self.BOARD_WIDTH - self.WIN_LENGTH + 1 = 7 - 4 + 1 = 4 --> [0-3]
         for i in range(self.BOARD_WIDTH - self.WIN_LENGTH + 1):
             if all([checker is self.__current_player_checker() for checker in self._board[row_index][i:i+self.WIN_LENGTH]]):
-                game._game_state = self.__current_player_win_game_state()
+                self._game_state = self.__current_player_win_game_state()
                 return
         
         # check vertical win
         for i in range(self.BOARD_HEIGHT - self.WIN_LENGTH + 1):
-            if all([True for row in self._board[i:i+self.WIN_LENGTH] if row[col_index] is self.__current_player_checker()]):
-                game._game_state = self.__current_player_win_game_state()
+            if all([row[col_index] is self.__current_player_checker() for row in self._board[i:i+self.WIN_LENGTH]]):
+                self._game_state = self.__current_player_win_game_state()
                 return
             
         # check positive diagonal win
 
         # check negative diagonal win
 
-    def move(self, col):
+    def drop_checker(self, col):
         col_index = col - 1
         # check if the move is valid
         # if the move is not valid, an error is thrown
@@ -114,14 +114,28 @@ class Connect4:
 
 def make_move(game, col):
     print(f"current player: {game.current_player()}")
-    game_state = game.move(col)
+    game_state = game.drop_checker(col)
     print('\n'.join([' | '.join([checker.value for checker in row]) for row in game.board()]))
-    print(game_state.value)
+    print(game_state)
     print()
 
 game = Connect4()
 
+# horizontal win
+# make_move(game, 1)
+# make_move(game, 7)
+# make_move(game, 2)
+# make_move(game, 7)
+# make_move(game, 3)
+# make_move(game, 7)
+# make_move(game, 4)
+
+# vertical win
 make_move(game, 1)
+make_move(game, 2)
 make_move(game, 1)
-make_move(game, 3)
+make_move(game, 2)
+make_move(game, 1)
+make_move(game, 2)
+make_move(game, 1)
 
