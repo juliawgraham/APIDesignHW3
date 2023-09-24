@@ -68,26 +68,31 @@ class Connect4:
         except ColumnFullError:
             print(f"Column {col} already has {self.BOARD_HEIGHT} checkers and can\'t accept any more")
     
-    def __update_game_state(self, row_index, col_index):
+    def __update_game_state(self):
+        # checks entire board for a tie/win
+        
         # check tie
         if not any([any([checker is Checker.EMPTY for checker in row]) for row in self._board]):
             game._game_state = GameState.TIE
             return
         
         # check horizontal win
-        # self.BOARD_WIDTH - self.WIN_LENGTH + 1 = 7 - 4 + 1 = 4 --> [0-3]
-        for i in range(self.BOARD_WIDTH - self.WIN_LENGTH + 1):
-            if all([checker is self.__current_player_checker() for checker in self._board[row_index][i:i+self.WIN_LENGTH]]):
-                self._game_state = self.__current_player_win_game_state()
-                return
+        for i in range(self.BOARD_HEIGHT):
+            # self.BOARD_WIDTH - self.WIN_LENGTH + 1 = 7 - 4 + 1 = 4 --> [0-3]
+            for j in range(self.BOARD_WIDTH - self.WIN_LENGTH + 1):
+                if all([checker is self.__current_player_checker() for checker in self._board[i][j:j+self.WIN_LENGTH]]):
+                    self._game_state = self.__current_player_win_game_state()
+                    return
         
         # check vertical win
         for i in range(self.BOARD_HEIGHT - self.WIN_LENGTH + 1):
-            if all([row[col_index] is self.__current_player_checker() for row in self._board[i:i+self.WIN_LENGTH]]):
-                self._game_state = self.__current_player_win_game_state()
-                return
+            for j in range(self.BOARD_WIDTH):
+                if all([row[j] is self.__current_player_checker() for row in self._board[i:i+self.WIN_LENGTH]]):
+                    self._game_state = self.__current_player_win_game_state()
+                    return
             
         # check positive diagonal win
+        
 
         # check negative diagonal win
 
@@ -103,10 +108,10 @@ class Connect4:
         # update the board with the new piece
         self._board[row_index][col_index] = self.__current_player_checker()
         
-        # update the game state based on the move made
-        self.__update_game_state(row_index, col_index)
+        # check for a tie/win and update the game state accordingly
+        self.__update_game_state()
 
-        # if the game is in progress, switch to the next player
+        # if the game is still in progress, switch to the next player
         if self.__is_game_in_progress():
             self.__switch_current_player()
         
