@@ -91,10 +91,16 @@ class Connect4:
                     self._game_state = self.__current_player_win_game_state()
                     return
             
-        # check positive diagonal win
-        
-
-        # check negative diagonal win
+        # check diagonal win
+        for i in range(0, self.BOARD_HEIGHT - self.WIN_LENGTH + 1):
+            for j in range(0, self.BOARD_WIDTH - self.WIN_LENGTH + 1):
+                # if self._board[i+3][j] is self._board[i+2][j+1] is self._board[i+1][j+2] is self._board[i][j+3] or \
+                # check positive diagonal win v
+                if all([self._board[i+index][j+(self.WIN_LENGTH - 1 - index)] for index in range(self.WIN_LENGTH)]) or \
+                   all([self._board[i+index][j+index] for index in range(self.WIN_LENGTH)]):
+                  # check negative diagonal win ^
+                    self._game_state = self.__current_player_win_game_state()
+                    return
 
     def drop_checker(self, col):
         col_index = col - 1
