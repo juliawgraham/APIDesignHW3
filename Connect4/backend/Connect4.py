@@ -96,8 +96,8 @@ class Connect4:
             for j in range(0, self.BOARD_WIDTH - self.WIN_LENGTH + 1):
                 # if self._board[i+3][j] is self._board[i+2][j+1] is self._board[i+1][j+2] is self._board[i][j+3] or \
                 # check positive diagonal win v
-                if all([self._board[i+index][j+(self.WIN_LENGTH - 1 - index)] for index in range(self.WIN_LENGTH)]) or \
-                   all([self._board[i+index][j+index] for index in range(self.WIN_LENGTH)]):
+                if all([self._board[i+index][j+(self.WIN_LENGTH - 1 - index)] is self.__current_player_checker() for index in range(self.WIN_LENGTH)]) or \
+                   all([self._board[i+index][j+index] is self.__current_player_checker() for index in range(self.WIN_LENGTH)]):
                   # check negative diagonal win ^
                     self._game_state = self.__current_player_win_game_state()
                     return
@@ -140,13 +140,44 @@ game = Connect4()
 # make_move(game, 3)
 # make_move(game, 7)
 # make_move(game, 4)
+# game.clear_board()
 
 # vertical win
-make_move(game, 1)
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 1)
+# game.clear_board()
+
+# positive diagonal win
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 2)
+# make_move(game, 3)
+# make_move(game, 3)
+# make_move(game, 4)
+# make_move(game, 3)
+# make_move(game, 4)
+# make_move(game, 4)
+# make_move(game, 6)
+# make_move(game, 4)
+# game.clear_board()
+
+# negative diagonal win
+make_move(game, 7)
+make_move(game, 6)
+make_move(game, 6)
+make_move(game, 5)
+make_move(game, 5)
+make_move(game, 4)
+make_move(game, 5)
+make_move(game, 4)
+make_move(game, 4)
 make_move(game, 2)
-make_move(game, 1)
-make_move(game, 2)
-make_move(game, 1)
-make_move(game, 2)
-make_move(game, 1)
+make_move(game, 4)
+game.clear_board()
+
 
