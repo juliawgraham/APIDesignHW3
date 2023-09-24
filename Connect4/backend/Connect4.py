@@ -3,11 +3,12 @@ from Checker import Checker
 from GameState import GameState
 
 class Connect4:
-    _game_state = GameState.IN_PROGRESS
+    _game_state = GameState.TURN_PLAYER_1
     _current_player = 1
     _board = []
     BOARD_WIDTH = 7
     BOARD_HEIGHT = 6 
+    WIN_LENGTH = 4
 
     def __init__(self):
         self.clear_board()
@@ -24,8 +25,13 @@ class Connect4:
     def __switch_current_player(self):
         if self._current_player == 1:
             self._current_player = 2
+            self._game_state = GameState.TURN_PLAYER_2
         else:
             self._current_player = 1
+            self._game_state = GameState.TURN_PLAYER_1
+    
+    def __is_game_in_progress():
+        return GameState.TURN_PLAYER_1 or GameState.TURN_PLAYER_2
     
     def board(self):
         return self._board
@@ -36,7 +42,7 @@ class Connect4:
 
     def is_valid_move(self, col):
         try:
-            if self._game_state is not GameState.IN_PROGRESS:
+            if not self.__is_game_in_progress():
                 raise GameOverError
             elif (col < 1 or col > self.BOARD_WIDTH):
                 raise ValueError
@@ -58,7 +64,9 @@ class Connect4:
             return
         
         # check horizontal wins
-
+        # if not any([any([checker is Checker.EMPTY for checker in row]) for row in self._board]):
+        #     game._game_state = GameState.WIN
+        #     return
         # check vertical wins
 
         # check positive diagonal wins
@@ -80,7 +88,7 @@ class Connect4:
         self.__update_game_state(row_to_drop, col)
 
         # if the game is in progress, switch to the next player
-        if self._game_state is GameState.IN_PROGRESS:
+        if self.__is_game_in_progress():
             self.__switch_current_player()
 
         return self._game_state
