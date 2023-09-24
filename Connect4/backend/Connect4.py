@@ -77,15 +77,15 @@ class Connect4:
         # check horizontal win
         # self.BOARD_WIDTH - self.WIN_LENGTH + 1 = 7 - 4 + 1 = 4 --> [0-3]
         for i in range(self.BOARD_WIDTH - self.WIN_LENGTH + 1):
-            if all([checker is self.__current_player_checker() for checker in self._board[i, i+self.WIN_LENGTH]]):
+            if all([checker is self.__current_player_checker() for checker in self._board[row_index][i:i+self.WIN_LENGTH]]):
                 game._game_state = self.__current_player_win_game_state()
                 return
         
         # check vertical win
-        # for i in range(self.BOARD_HEIGHT - self.WIN_LENGTH + 1):
-        #     if all([True for row in self._board if row[col_index] is self.__current_player_checker()]):
-        #         game._game_state = self.__current_player_win_game_state()
-        #         return
+        for i in range(self.BOARD_HEIGHT - self.WIN_LENGTH + 1):
+            if all([True for row in self._board[i:i+self.WIN_LENGTH] if row[col_index] is self.__current_player_checker()]):
+                game._game_state = self.__current_player_win_game_state()
+                return
             
         # check positive diagonal win
 
