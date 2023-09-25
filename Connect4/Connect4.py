@@ -22,9 +22,9 @@ class Connect4:
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
         :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
         """
-        self._reset_game(first_player_turn)
+        self.__reset_game(first_player_turn)
 
-    def _reset_game(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
+    def __reset_game(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
         """        
         Reset the game by clearing the board and setting a new first player.
 
@@ -92,11 +92,8 @@ class Connect4:
         """
         return (self._game_state is GameState.TURN_PLAYER_1) or (self._game_state is GameState.TURN_PLAYER_2)
     
-    # ????
     def current_game_state(self):
         """
-        **NOT SURE IF THIS SHOULD BE INCLUDED OR NOT**
-
         Get the current game state.
 
         :returns: The current game state.
