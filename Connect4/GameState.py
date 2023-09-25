@@ -2,6 +2,9 @@ from enum import Enum
 
 class GameState(Enum):
     def __str__(self):
+        """
+        When printing the enum, will print the enum's value.
+        """
         return str(self.value)
     
     TURN_PLAYER_1 = 'Player 1\'s turn'
