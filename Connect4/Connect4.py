@@ -1,6 +1,7 @@
+from enum import Enum
 from CellState import CellState
 from GameState import GameState
-from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, InvalidPlayerError
+from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, InvalidPlayerTurnError
 
 class Connect4:
     """
@@ -14,34 +15,34 @@ class Connect4:
     _BOARD_HEIGHT = 6 
     _WIN_LENGTH = 4
 
-    def __init__(self, first_player: int = 1):
+    def __init__(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
         """
         The constructor creates an instance of the Connect4 class, 
         initializes an empty board, and sets the player to play first.
 
-        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises InvalidPlayerError: The inputted first player is not 1 or 2.
+        :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
+        :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
         """
-        self.reset_game(first_player)
+        self.reset_game(first_player_turn)
 
-    def reset_game(self, first_player: int = 1):
+    def reset_game(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
         """
         **NOT SURE IF THIS SHOULD BE INCLUDED OR NOT, BECAUSE THE USER COULD JUST CREATE A NEW CONNECT4 GAME EACH TIME**
         
         Reset the game by clearing the board and setting a new first player.
 
-        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises InvalidPlayerError: The inputted first player is not 1 or 2.
+        :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
+        :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
         """
-        if first_player != 1 and first_player != 2:
-            raise InvalidPlayerError(first_player)
+        if not (first_player_turn is GameState.TURN_PLAYER_1 or first_player_turn is GameState.TURN_PLAYER_1):
+            raise InvalidPlayerTurnError()
         
-        self._current_player = first_player
-        if first_player == 1:
-            self._game_state = GameState.TURN_PLAYER_1
+        self._game_state = first_player_turn
+        if first_player_turn is GameState.TURN_PLAYER_1:
+            self._current_player = 1
         else:
-            self._game_state = GameState.TURN_PLAYER_2
-    
+            self._current_player = 2
+
         self._board = []
         
         for _ in range(self._BOARD_HEIGHT):
@@ -340,3 +341,6 @@ class Connect4:
 # make_move(game2, 1)
 # print(game2.find_all_valid_moves())
 # game2.reset_game()
+
+
+# game5 = Connect4("Testing")

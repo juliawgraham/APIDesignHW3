@@ -33,14 +33,11 @@ class GameOverError(Exception):
     
     pass
 
-class InvalidPlayerError(Exception):
-    "Raised when the player number inputted is invalid."
+class InvalidPlayerTurnError(Exception):
+    "Raised when the player turn inputted is invalid."
 
-    def __init__(self, player):
-        """
-        :param int player: The player number associated with the error.
-        """
-        message = f"Player {player} is invalid. A valid value for the first player is either `1` or `2`."
+    def __init__(self):
+        message = f"The inputted player turn is invalid."
         super().__init__(message)
     
     pass
