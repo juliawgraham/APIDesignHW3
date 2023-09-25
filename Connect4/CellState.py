@@ -8,5 +8,5 @@ class CellState(Enum):
         return str(self.value)
     
     EMPTY = ' '
-    PLAYER_1_CHECKER = '1'
-    PLAYER_2_CHECKER = '2'
+    CHECKER_PLAYER_1 = '1'
+    CHECKER_PLAYER_2 = '2'

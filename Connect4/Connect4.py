@@ -66,9 +66,9 @@ class Connect4:
         Get the cell state associated with the current player.
         """
         if self._current_player == 1:
-            return CellState.PLAYER_1_CHECKER
+            return CellState.CHECKER_PLAYER_1
         else:
-            return CellState.PLAYER_2_CHECKER
+            return CellState.CHECKER_PLAYER_2
     
     def __current_player_win_game_state(self):
         """
