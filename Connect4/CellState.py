@@ -1,9 +1,9 @@
 from enum import Enum
 
-class Checker(Enum):
+class CellState(Enum):
     def __str__(self):
         return str(self.value)
     
     EMPTY = ' '
-    YELLOW = 'Y'
-    RED = 'R'
+    PLAYER_1_CHECKER = '1'
+    PLAYER_2_CHECKER = '2'

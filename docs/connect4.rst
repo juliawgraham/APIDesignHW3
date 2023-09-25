@@ -20,10 +20,10 @@ GameState module
    :undoc-members:
    :show-inheritance:
 
-Checker module
+CellState module
 -------------------------
 
-.. automodule:: Checker
+.. automodule:: CellState
    :members:
    :undoc-members:
    :show-inheritance:
