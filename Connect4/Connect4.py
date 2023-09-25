@@ -22,12 +22,10 @@ class Connect4:
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
         :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
         """
-        self.reset_game(first_player_turn)
+        self._reset_game(first_player_turn)
 
-    def reset_game(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
-        """
-        **NOT SURE IF THIS SHOULD BE INCLUDED OR NOT, BECAUSE THE USER COULD JUST CREATE A NEW CONNECT4 GAME EACH TIME**
-        
+    def _reset_game(self, first_player_turn: GameState = GameState.TURN_PLAYER_1):
+        """        
         Reset the game by clearing the board and setting a new first player.
 
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
@@ -193,8 +191,6 @@ class Connect4:
 
     def drop_checker(self, col: int):
         """
-        **SHOULD THE COLUMN BE 1-7 (like natural counting) OR 0-6 (like coding)??**
-
         Drop a checker for the current player into the given column.
 
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
@@ -207,7 +203,7 @@ class Connect4:
         **Example:**
 
         The following example shows how to play a game of connect 4 starting with player 1.
-        Player 1 makes a move in column 1 (in position [5,0]) and Player 2 makes a move in column 3 (in position [5,0]).
+        Player 1 makes a move in column 1 (in position [5,0]) and Player 2 makes a move in column 3 (in position [5,2]).
 
         .. code-block:: python
             
