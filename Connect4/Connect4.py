@@ -22,7 +22,7 @@ class Connect4:
         :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
         :raises ValueError: If the player `first_player` is invalid
         """
-        self.reset_game
+        self.reset_game(first_player)
 
     def current_player(self):
         """
