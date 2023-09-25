@@ -183,7 +183,7 @@ class Connect4:
 
     def drop_checker(self, col: int):
         """
-        *SHOULD THE COLUMN BE 1-7 (like natural counting) OR 0-6 (like coding)??**
+        **SHOULD THE COLUMN BE 1-7 (like natural counting) OR 0-6 (like coding)??**
 
         Drop a checker for the current player into the given column.
 
