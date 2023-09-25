@@ -19,7 +19,7 @@ class Connect4:
         The constructor creates an instance of the Connect4 class, 
         initializes an empty board, and sets the player to play first.
 
-        :param int - optional first_player: int of `1` or `2` which represents the player to play first. By default, player 1 plays first.
+        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
         :raises ValueError: If the player `first_player` is invalid"
         """
         self.reset_game
@@ -31,7 +31,7 @@ class Connect4:
         If the game is over, the current player will be the player who made the last move
         since there are no more valid turns left in the game.
 
-        :returns: The current player which is either player 1 or player 2.
+        :returns: The current player, which is either player 1 or player 2.
         :rtype: int of value `1` or `2`.
         """
         return self._current_player
@@ -85,7 +85,7 @@ class Connect4:
     
     def board(self):
         """
-        Get the current board which is a 2-dimensional list of :mod:`CellState`\'s.
+        Get the current board, which is a 2-dimensional list of :mod:`CellState`\'s.
 
         :returns: The current board of size 6 x 7. Position [0,0] is the top left of the board. 
         :rtype: List[List[:mod:`CellState`]]
@@ -98,7 +98,7 @@ class Connect4:
         
         Reset the game by clearing the board and setting a new first player.
 
-        :param int - optional first_player: int of `1` or `2` which represents the player to play first. By default, player 1 plays first.
+        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
         :raises ValueError: If the player `first_player` is invalid"
         """
         try:
