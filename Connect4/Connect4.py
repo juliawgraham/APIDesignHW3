@@ -24,6 +24,31 @@ class Connect4:
         """
         self.reset_game(first_player)
 
+    def reset_game(self, first_player: int = 1):
+        """
+        **NOT SURE IF THIS SHOULD BE INCLUDED OR NOT, BECAUSE THE USER COULD JUST CREATE A NEW CONNECT4 GAME EACH TIME**
+        
+        Reset the game by clearing the board and setting a new first player.
+
+        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
+        :raises ValueError: If the player `first_player` is invalid"
+        """
+        try:
+            if first_player != 1 and first_player != 2:
+                raise ValueError
+            
+            self._current_player = first_player
+            if first_player == 1:
+                self._game_state = GameState.TURN_PLAYER_1
+            else:
+                self._game_state = GameState.TURN_PLAYER_2
+        
+            for _ in range(self._BOARD_HEIGHT):
+                self._board.append([CellState.EMPTY] * self._BOARD_WIDTH)
+
+        except ValueError:
+            print(f"Player {first_player} is invalid. A valid value for the first player is either `1` or `2`.")
+
     def current_player(self):
         """
         Get the current player, as in the player whose turn it currently is.
@@ -92,31 +117,6 @@ class Connect4:
         """
         return self._board
     
-    def reset_game(self, first_player: int = 1):
-        """
-        **NOT SURE IF THIS SHOULD BE INCLUDED OR NOT, BECAUSE THE USER COULD JUST CREATE A NEW CONNECT4 GAME EACH TIME**
-        
-        Reset the game by clearing the board and setting a new first player.
-
-        :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises ValueError: If the player `first_player` is invalid"
-        """
-        try:
-            if first_player != 1 and first_player != 2:
-                raise ValueError
-            
-            self._current_player = first_player
-            if first_player == 1:
-                self._game_state = GameState.TURN_PLAYER_1
-            else:
-                self._game_state = GameState.TURN_PLAYER_2
-        
-            for _ in range(self._BOARD_HEIGHT):
-                self._board.append([CellState.EMPTY] * self._BOARD_WIDTH)
-
-        except ValueError:
-            print(f"Player {first_player} is invalid. A valid value for the first player is either `1` or `2`.")
-
     def is_valid_move(self, col: int):
         """
         Check if dropping the checker into the given column is a valid move or not.
