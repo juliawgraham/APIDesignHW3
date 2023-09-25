@@ -20,7 +20,7 @@ class Connect4:
         initializes an empty board, and sets the player to play first.
 
         :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises ValueError: If the player `first_player` is invalid"
+        :raises ValueError: If the player `first_player` is invalid
         """
         self.reset_game
 
