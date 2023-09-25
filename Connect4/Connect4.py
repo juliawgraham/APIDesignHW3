@@ -1,4 +1,3 @@
-from enum import Enum
 from CellState import CellState
 from GameState import GameState
 from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, InvalidPlayerTurnError
