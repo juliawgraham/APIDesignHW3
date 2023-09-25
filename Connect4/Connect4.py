@@ -1,6 +1,6 @@
 from CellState import CellState
 from GameState import GameState
-from errors import ColumnFullError, GameOverError
+from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, InvalidPlayerError
 
 class Connect4:
     """
@@ -20,7 +20,7 @@ class Connect4:
         initializes an empty board, and sets the player to play first.
 
         :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises ValueError: If the player `first_player` is invalid
+        :raises InvalidPlayerError: The inputted first player is not 1 or 2.
         """
         self.reset_game(first_player)
 
@@ -31,23 +31,21 @@ class Connect4:
         Reset the game by clearing the board and setting a new first player.
 
         :param int - optional first_player: int of `1` or `2`, which represents the player to play first. By default, player 1 plays first.
-        :raises ValueError: If the player `first_player` is invalid"
+        :raises InvalidPlayerError: The inputted first player is not 1 or 2.
         """
-        try:
-            if first_player != 1 and first_player != 2:
-                raise ValueError
-            
-            self._current_player = first_player
-            if first_player == 1:
-                self._game_state = GameState.TURN_PLAYER_1
-            else:
-                self._game_state = GameState.TURN_PLAYER_2
+        if first_player != 1 and first_player != 2:
+            raise InvalidPlayerError(first_player)
         
-            for _ in range(self._BOARD_HEIGHT):
-                self._board.append([CellState.EMPTY] * self._BOARD_WIDTH)
-
-        except ValueError:
-            print(f"Player {first_player} is invalid. A valid value for the first player is either `1` or `2`.")
+        self._current_player = first_player
+        if first_player == 1:
+            self._game_state = GameState.TURN_PLAYER_1
+        else:
+            self._game_state = GameState.TURN_PLAYER_2
+    
+        self._board = []
+        
+        for _ in range(self._BOARD_HEIGHT):
+            self._board.append([CellState.EMPTY] * self._BOARD_WIDTH)
 
     def current_player(self):
         """
@@ -116,7 +114,7 @@ class Connect4:
         :rtype: List[List[:mod:`CellState`]]
         """
         return self._board
-    
+
     def is_valid_move(self, col: int):
         """
         Check if dropping the checker into the given column is a valid move or not.
@@ -124,28 +122,40 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: True if the move is valid.
         :rtype: bool
-        :raises GameOverError: If the game is over and no more moves can be made
-        :raises ValueError: If the column `col` is out of range of the board\'s size: 1-7
-        :raises ColumnFullError: If the column `col` already has 6 checkers and can\'t accept any more
+        :raises GameOverError: The game is over.
+        :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
+        :raises ColumnFullError: The column is full of checkers.
         """
+        
         col_index = col - 1
-        try:
-            if not self.__is_game_in_progress():
-                raise GameOverError
-            elif (col < 1 or col > self._BOARD_WIDTH):
-                raise ValueError
-            elif not any([row[col_index] is CellState.EMPTY for row in self._board]):
-                raise ColumnFullError
-            else:
-                return True
-
-        except GameOverError:
-            print("The game is over and no more moves can be made")
-        except ValueError:
-            print(f"Column {col} is out of range of the board\'s size: 1-{self._BOARD_WIDTH}")
-        except ColumnFullError:
-            print(f"Column {col} already has {self._BOARD_HEIGHT} checkers and can\'t accept any more")
+        if not self.__is_game_in_progress():
+            raise GameOverError
+        elif (col < 1 or col > self._BOARD_WIDTH):
+            raise ColumnOutOfRangeError(col, self._BOARD_WIDTH)
+        elif not any([row[col_index] is CellState.EMPTY for row in self._board]):
+            raise ColumnFullError(col, self._BOARD_HEIGHT)
+        else:
+            return True
     
+    def find_all_valid_moves(self):
+        """
+        Find all valid moves for the current player.
+
+        :returns: A list of all columns, from 1-7, where a checker can be dropped into to make a valid move. If no valid moves can be made, the list is empty.
+        :rtype: List[int]
+        """
+
+        result = []
+        
+        for col_index in range(self._BOARD_WIDTH):
+            try:
+                if self.is_valid_move(col_index+1):
+                    result.append(col_index+1)
+            except (GameOverError, ColumnFullError):
+                pass
+        
+        return result
+
     def __update_game_state(self):
         """
         Update the game state after checking the entire board for a tie/win.
@@ -190,9 +200,9 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: The :mod:`GameState` after the move is completed.
         :rtype: :mod:`GameState`
-        :raises GameOverError: If the game is over and no more moves can be made
-        :raises ValueError: If the column `col` is out of range of the board\'s size: 1-7"
-        :raises ColumnFullError: If the column `col` already has 6 checkers and can\'t accept any more
+        :raises GameOverError: The game is over.
+        :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
+        :raises ColumnFullError: The column is full of checkers.
 
         **Example:**
 
@@ -258,7 +268,7 @@ class Connect4:
 # make_move(game, 3)
 # make_move(game, 7)
 # make_move(game, 4)
-# game.clear_board()
+# game.reset_game()
 
 # # vertical win
 # make_move(game, 1)
@@ -268,7 +278,7 @@ class Connect4:
 # make_move(game, 1)
 # make_move(game, 2)
 # make_move(game, 1)
-# game.clear_board()
+# game.reset_game()
 
 # # positive diagonal win
 # make_move(game, 1)
@@ -282,7 +292,7 @@ class Connect4:
 # make_move(game, 4)
 # make_move(game, 6)
 # make_move(game, 4)
-# game.clear_board()
+# game.reset_game()
 
 # # negative diagonal win
 # make_move(game, 7)
@@ -296,6 +306,37 @@ class Connect4:
 # make_move(game, 4)
 # make_move(game, 2)
 # make_move(game, 4)
-# game.clear_board()
+# game.reset_game()
 
+# # test find all valid moves
+# make_move(game, 1)
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 2)
+# make_move(game, 1)
+# make_move(game, 1)
+# make_move(game, 2)
+# make_move(game, 2)
+# make_move(game, 1)
+# make_move(game, 1)
+# print(game.find_all_valid_moves())
+# make_move(game, 2)
+# print(game.find_all_valid_moves())
+# make_move(game, 2)
+# print(game.find_all_valid_moves())
+# # print(make_move(game, 2))
+# game.reset_game()
 
+# print("------------------------")
+
+# game2 = Connect4(1)
+# make_move(game2, 1)
+# make_move(game2, 2)
+# make_move(game2, 1)
+# make_move(game2, 2)
+# make_move(game2, 1)
+# make_move(game2, 2)
+# # print(game2.is_valid_move(9))
+# make_move(game2, 1)
+# print(game2.find_all_valid_moves())
+# game2.reset_game()
