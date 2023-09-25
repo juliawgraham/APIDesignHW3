@@ -197,7 +197,7 @@ class Connect4:
         **Example:**
 
         The following example shows how to play a game of connect 4 starting with player 1.
-        Player 1 makes a move in column 1 (in position [0,5]) and Player 2 makes a move in column 3 (in position [2,5]).
+        Player 1 makes a move in column 1 (in position [5,0]) and Player 2 makes a move in column 3 (in position [5,0]).
 
         .. code-block:: python
             
