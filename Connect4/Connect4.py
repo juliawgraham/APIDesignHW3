@@ -200,6 +200,7 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: The :mod:`GameState` after the move is completed.
         :rtype: :mod:`GameState`
+        :raises TypeError: The inputted column is not an int.
         :raises GameOverError: The game is over.
         :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
         :raises ColumnFullError: The column is full of checkers.
@@ -238,7 +239,3 @@ class Connect4:
             self.__switch_current_player()
         
         return self._game_state
-
-
-game = Connect4()
-game.drop_checker("Hello")
