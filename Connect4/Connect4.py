@@ -4,7 +4,7 @@ from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, Invali
 
 class Connect4:
     """
-    The Connect4 class provides users the ability to play games of Connect 4 
+    The Connect4 class provides users the ability to play a game of Connect 4 
     following the `standard connect 4 rules <https://en.wikipedia.org/wiki/Connect_Four>`_.
     """
     _game_state = GameState.TURN_PLAYER_1
