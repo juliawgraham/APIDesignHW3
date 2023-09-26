@@ -118,11 +118,17 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: True if the move is valid.
         :rtype: bool
+        :raises TypeError: The inputted column is not an int.
         :raises GameOverError: The game is over.
         :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
         :raises ColumnFullError: The column is full of checkers.
         """
         
+        try:
+            col = int(col)
+        except:
+            raise TypeError("The inputted column must be an int")
+
         col_index = col - 1
         if not self.__is_game_in_progress():
             raise GameOverError
@@ -211,10 +217,12 @@ class Connect4:
             print(game.drop_checker(3))         # prints `Player 1's turn`
 
         """
-        col_index = col - 1
+
         # check if the move is valid
         # if the move is not valid, an error is thrown
         self.is_valid_move(col)
+
+        col_index = col - 1
 
         # find the row where the checker will drop to
         row_index = max(row_index for row_index, row in enumerate(self._board) if row[col_index] is CellState.EMPTY)
@@ -230,3 +238,7 @@ class Connect4:
             self.__switch_current_player()
         
         return self._game_state
+
+
+game = Connect4()
+game.drop_checker("Hello")
