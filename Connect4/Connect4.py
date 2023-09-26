@@ -126,18 +126,17 @@ class Connect4:
         
         try:
             col = int(col)
+            col_index = col - 1
+            if not self.__is_game_in_progress():
+                raise GameOverError
+            elif (col < 1 or col > self._BOARD_WIDTH):
+                raise ColumnOutOfRangeError(col, self._BOARD_WIDTH)
+            elif not any([row[col_index] is CellState.EMPTY for row in self._board]):
+                raise ColumnFullError(col, self._BOARD_HEIGHT)
+            else:
+                return True
         except:
             raise TypeError("The inputted column must be an int")
-
-        col_index = col - 1
-        if not self.__is_game_in_progress():
-            raise GameOverError
-        elif (col < 1 or col > self._BOARD_WIDTH):
-            raise ColumnOutOfRangeError(col, self._BOARD_WIDTH)
-        elif not any([row[col_index] is CellState.EMPTY for row in self._board]):
-            raise ColumnFullError(col, self._BOARD_HEIGHT)
-        else:
-            return True
     
     def find_all_valid_moves(self):
         """
@@ -223,6 +222,7 @@ class Connect4:
         # if the move is not valid, an error is thrown
         self.is_valid_move(col)
 
+        col = int(col)
         col_index = col - 1
 
         # find the row where the checker will drop to

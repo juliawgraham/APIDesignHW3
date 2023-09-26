@@ -6,7 +6,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 
 # Add the parent directory to the Python path
-sys.path.append(parent_dir + "\\Connect4")
+# sys.path.append(parent_dir + "\\Connect4")
+sys.path.append(parent_dir + "/Connect4") # for mac
 
 from Connect4 import GameState
 import errors
@@ -35,7 +36,7 @@ def play(game):
     while True:
         # ask player for input
         print("Enter a column number to drop a checker into: ")
-        column = int(input())
+        column = input()
 
         try:
             state = game.drop_checker(column)
@@ -43,7 +44,7 @@ def play(game):
 
             if state == GameState.WIN_PLAYER_1 or state == GameState.WIN_PLAYER_2 or state == GameState.TIE:
                 break
-        except (errors.ColumnOutOfRangeError, errors.ColumnFullError, errors.GameOverError) as error:
+        except (errors.ColumnOutOfRangeError, errors.ColumnFullError, errors.GameOverError, TypeError) as error:
             print(error)
             continue
 
