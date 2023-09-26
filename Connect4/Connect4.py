@@ -113,6 +113,7 @@ class Connect4:
     def is_valid_move(self, col: int):
         """
         Check if dropping the checker into the given column is a valid move or not.
+        If the move is invalid, an exception is raised that specifies why the move was invalid.
 
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: True if the move is valid.
@@ -229,110 +230,3 @@ class Connect4:
             self.__switch_current_player()
         
         return self._game_state
-
-
-
-
-
-# Testing
-
-# def make_move(game, col: int):
-#     print(f"current player: {game.current_player()}")
-#     game_state = game.drop_checker(col)
-#     print('\n'.join([' | '.join([cell_state.value for cell_state in row]) for row in game.board()]))
-#     print(game_state)
-#     print()
-
-# game = Connect4()
-
-# # example code
-# print(game.current_game_state())
-# print(game.drop_checker(1))         
-# print(game.drop_checker(3))
-
-# # print(make_move(game, 1))         
-# # print(make_move(game, 3))
-
-# # horizontal win
-# make_move(game, 1)
-# make_move(game, 7)
-# make_move(game, 2)
-# make_move(game, 7)
-# make_move(game, 3)
-# make_move(game, 7)
-# make_move(game, 4)
-# game.reset_game()
-
-# # vertical win
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 1)
-# game.reset_game()
-
-# # positive diagonal win
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 2)
-# make_move(game, 3)
-# make_move(game, 3)
-# make_move(game, 4)
-# make_move(game, 3)
-# make_move(game, 4)
-# make_move(game, 4)
-# make_move(game, 6)
-# make_move(game, 4)
-# game.reset_game()
-
-# # negative diagonal win
-# make_move(game, 7)
-# make_move(game, 6)
-# make_move(game, 6)
-# make_move(game, 5)
-# make_move(game, 5)
-# make_move(game, 4)
-# make_move(game, 5)
-# make_move(game, 4)
-# make_move(game, 4)
-# make_move(game, 2)
-# make_move(game, 4)
-# game.reset_game()
-
-# # test find all valid moves
-# make_move(game, 1)
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 2)
-# make_move(game, 1)
-# make_move(game, 1)
-# make_move(game, 2)
-# make_move(game, 2)
-# make_move(game, 1)
-# make_move(game, 1)
-# print(game.find_all_valid_moves())
-# make_move(game, 2)
-# print(game.find_all_valid_moves())
-# make_move(game, 2)
-# print(game.find_all_valid_moves())
-# # print(make_move(game, 2))
-# game.reset_game()
-
-# print("------------------------")
-
-# game2 = Connect4(1)
-# make_move(game2, 1)
-# make_move(game2, 2)
-# make_move(game2, 1)
-# make_move(game2, 2)
-# make_move(game2, 1)
-# make_move(game2, 2)
-# # print(game2.is_valid_move(9))
-# make_move(game2, 1)
-# print(game2.find_all_valid_moves())
-# game2.reset_game()
-
-
-# game5 = Connect4("Testing")
