@@ -6,8 +6,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 
 # Add the parent directory to the Python path
-# sys.path.append(parent_dir + "\\Connect4")
-sys.path.append(parent_dir + "/Connect4") # for mac
+sys.path.append(parent_dir + "\\Connect4")
+# sys.path.append(parent_dir + "/Connect4") # for mac
 
 from Connect4 import GameState
 import errors
