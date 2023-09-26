@@ -207,15 +207,26 @@ class Connect4:
         **Example:**
 
         The following example shows how to play a game of connect 4 starting with player 1.
-        Player 1 makes a move in column 1 (in position [5,0]) and Player 2 makes a move in column 3 (in position [5,2]).
 
         .. code-block:: python
             
+            # initialize a game
             game = Connect4()
-            print(game.current_game_state())    # prints `Player 1's turn`
-            print(game.drop_checker(1))         # prints `Player 2's turn`
-            print(game.drop_checker(3))         # prints `Player 1's turn`
 
+            print(game.current_game_state())
+            # prints `Player 1's turn`
+
+            # player 1 makes a move in column 1 (in position [5,0])
+            print(game.drop_checker(1))
+            # prints `Player 2's turn`
+
+            # player 2 makes a move in column 3 (in position [5,2])
+            print(game.drop_checker(3))
+            # prints `Player 1's turn`
+
+            # player 1 makes a move in column 1 (in position [4,0])
+            print(game.drop_checker(1))
+            # prints `Player 2's turn`
         """
 
         # check if the move is valid
