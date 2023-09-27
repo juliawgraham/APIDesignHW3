@@ -68,11 +68,13 @@ while True:
     # play in two human players mode
     play(game)
 
-    print("Game over.")
     print("Final board:")
     draw_board(game.board())
 
-    print("Start a new game? (y/n):")
+    print("Game over.")
+    print("===============")
+    print("\n")
+    print("Press 'y' to start a new game or press any other key to exit")
     response = input()
     if response != 'y':
         break
