@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import connect4.Game;
 import connect4.GameResult;
@@ -51,6 +55,60 @@ public class CLI {
         // code here for printing red win/yellow win/tie
     }
 
+    private Player getPlayerColor() {
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            System.out.println("Would you like to play as red or yellow? (r/y)");
+            String color = scanner.nextLine();
+            if (color.equals("r")) {
+                return Player.RED;
+            }
+            else if (color.equals("y")) {
+                return Player.YELLOW;
+            }
+            else {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+    }
+
+    private int getComputerMove(Game game) {
+        // check all the valid moves
+        // pick a random one
+        // return it
+
+        Set<Integer> moves = game.getPossibleMoves();
+
+        // Convert the Set to a List
+        List<Integer> movesList = new ArrayList<>(moves);
+
+        // Generate a random index within the bounds of the List
+        Random random = new Random();
+        int randomIndex = random.nextInt(movesList.size());
+
+        // Get the random number from the List
+        int randomValue = movesList.get(randomIndex);
+        return randomValue;
+    }
+
+    private int getPlayerMove(Game game) {
+        // ask the player where they want to play
+        // check if it's a valid move
+        // return it
+
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            System.out.println("Enter a column to play in [0 - 6]: ");
+            int col = scanner.nextInt();
+            if (col >= 0 && col <= 6) {
+                return col;
+            }
+            else {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+    }
+
 
     /* Assignment:
     Write code that uses that API, producing a simple text-based client 
@@ -62,8 +120,6 @@ public class CLI {
     
         CLI cli = new CLI();
 
-        Scanner scanner = new Scanner(System.in);
-
         // while loop probably somewhere here like how you did it in Python
         // honestly, probably very similar code to what we did for our API
         // except that for this assignment, we will have a computer 
@@ -72,17 +128,33 @@ public class CLI {
         // the documentation is kind of a lot but in essence, they have a 
         // very similar design to us
 
-        Game game = new Game(Player.RED);
-        cli.printStatus(game.getStatus());
+       
+        Player playerColor = cli.getPlayerColor();
+
+        Game game = new Game(playerColor);
+
+        while (game.getStatus() instanceof Status.Turn) {
+            cli.drawBoard(game.getBoard());
+            cli.printStatus(game.getStatus());
+
+            int col;
+
+            if(game.getTurn().get() == playerColor) {
+                col = cli.getPlayerMove(game);
+            }
+            else {
+                col = cli.getComputerMove(game);
+            }
+            
+            game.move(game.getTurn().get(), col);
+
+        }
+        System.out.println(game.getStatus());
+
+        System.out.println("Game over!");
+        System.out.println("Final board:");
 
         cli.drawBoard(game.getBoard());
-
-        System.out.println(game.getTurn());
-
-        // pretty sure you have to do something like 
-        // game.move(game.getTurn(), col)
-
-
 
     }
 }
