@@ -119,8 +119,6 @@ public class CLI {
             cli.drawBoard(game.getBoard());
             cli.printStatus(game.getStatus());
 
-            System.out.println(game.getPossibleMoves());
-
             int col;
 
             if (game.getTurn().get() == playerColor) {
