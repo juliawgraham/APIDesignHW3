@@ -34,10 +34,10 @@ class GameOverError(Exception):
     pass
 
 class InvalidPlayerTurnError(Exception):
-    "Raised when the player turn inputted is invalid."
+    "Raised when the player turn provided is invalid."
 
     def __init__(self):
-        message = f"The inputted player turn is invalid."
+        message = f"The provided player turn is invalid."
         super().__init__(message)
     
     pass

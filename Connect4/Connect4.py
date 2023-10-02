@@ -22,7 +22,7 @@ class Connect4:
         initializes an empty board, and sets the player to play first.
 
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
-        :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
+        :raises InvalidPlayerTurnError: The provided first player turn is not valid.
         """
         self.__reset_game(first_player_turn)
 
@@ -31,7 +31,7 @@ class Connect4:
         Reset the game by clearing the board and setting a new first player.
 
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_2`, which represents the player to play first. By default, player 1 plays first.
-        :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
+        :raises InvalidPlayerTurnError: The provided first player turn is not valid.
         """
         if not (first_player_turn is GameState.TURN_PLAYER_1 or first_player_turn is GameState.TURN_PLAYER_2):
             raise InvalidPlayerTurnError()
@@ -123,16 +123,16 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: True if the move is valid.
         :rtype: bool
-        :raises TypeError: The inputted column is not an int.
+        :raises TypeError: The provided column is not an int.
         :raises GameOverError: The game is over.
-        :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
+        :raises ColumnOutOfRangeError: The provided column is not between 1 and 7.
         :raises ColumnFullError: The column is full of checkers.
         """
         
         try:
             col = int(col)
         except:
-            raise TypeError("The inputted column must be an int")
+            raise TypeError("The provided column must be an int")
         
         col_index = col - 1
         if not self.is_game_in_progress():
@@ -206,9 +206,9 @@ class Connect4:
         :param int col: The column, from 1 to 7, where the checker should be dropped into.
         :returns: The :mod:`GameState` after the move is completed.
         :rtype: :mod:`GameState`
-        :raises TypeError: The inputted column is not an int.
+        :raises TypeError: The provided column is not an int.
         :raises GameOverError: The game is over.
-        :raises ColumnOutOfRangeError: The inputted column is not between 1 and 7.
+        :raises ColumnOutOfRangeError: The provided column is not between 1 and 7.
         :raises ColumnFullError: The column is full of checkers.
 
         **Example:**
