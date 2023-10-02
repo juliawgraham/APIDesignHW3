@@ -33,7 +33,7 @@ class Connect4:
         :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
         :raises InvalidPlayerTurnError: The inputted first player turn is not valid.
         """
-        if not (first_player_turn is GameState.TURN_PLAYER_1 or first_player_turn is GameState.TURN_PLAYER_1):
+        if not (first_player_turn is GameState.TURN_PLAYER_1 or first_player_turn is GameState.TURN_PLAYER_2):
             raise InvalidPlayerTurnError()
         
         self._game_state = first_player_turn
