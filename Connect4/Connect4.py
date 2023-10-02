@@ -88,9 +88,12 @@ class Connect4:
             self._current_player = 1
             self._game_state = GameState.TURN_PLAYER_1
     
-    def __is_game_in_progress(self):
+    def is_game_in_progress(self):
         """
         Check if the game is in progress.
+
+        :returns: True if the game is in progress and False if the game is over.
+        :rtype: bool
         """
         return (self._game_state is GameState.TURN_PLAYER_1) or (self._game_state is GameState.TURN_PLAYER_2)
     
@@ -132,7 +135,7 @@ class Connect4:
             raise TypeError("The inputted column must be an int")
         
         col_index = col - 1
-        if not self.__is_game_in_progress():
+        if not self.is_game_in_progress():
             raise GameOverError
         elif (col < 1 or col > self._BOARD_WIDTH):
             raise ColumnOutOfRangeError(col, self._BOARD_WIDTH)
@@ -250,7 +253,7 @@ class Connect4:
         self.__update_game_state()
 
         # if the game is still in progress, switch to the next player
-        if self.__is_game_in_progress():
+        if self.is_game_in_progress():
             self.__switch_current_player()
         
         return self._game_state
