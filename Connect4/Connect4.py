@@ -2,6 +2,8 @@ from CellState import CellState
 from GameState import GameState
 from errors import ColumnFullError, ColumnOutOfRangeError, GameOverError, InvalidPlayerTurnError
 
+import copy
+
 class Connect4:
     """
     The Connect4 class provides users the ability to play a game of Connect 4 
@@ -103,12 +105,12 @@ class Connect4:
     
     def board(self):
         """
-        Get the current board, which is a 2-dimensional list of :mod:`CellState`\'s.
+        Get a copy of the board, which is a 2-dimensional list of :mod:`CellState`\'s.
 
-        :returns: The current board of size 6 x 7. Position [0,0] is the top left of the board. 
+        :returns: A copy of the current board of size 6 x 7. Position [0,0] is the top left of the board. This is a copy of the board, meaning that any changes to this board will not affect the game.
         :rtype: List[List[:mod:`CellState`]]
         """
-        return self._board
+        return copy.deepcopy(self._board)
 
     def is_valid_move(self, col: int):
         """
