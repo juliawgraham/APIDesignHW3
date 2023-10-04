@@ -21,7 +21,7 @@ class Connect4:
         The constructor creates an instance of the Connect4 class, 
         initializes an empty board, and sets the player to play first.
 
-        :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_1`, which represents the player to play first. By default, player 1 plays first.
+        :param GameState - optional first_player_turn: enum of :data:`GameState.GameState.TURN_PLAYER_1` or :data:`GameState.GameState.TURN_PLAYER_2`, which represents the player to play first. By default, player 1 plays first.
         :raises InvalidPlayerTurnError: The provided first player turn is not valid.
         """
         self.__reset_game(first_player_turn)
